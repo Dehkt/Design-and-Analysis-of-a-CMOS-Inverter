@@ -2,10 +2,6 @@
 
 This repository focuses on the operation and analysis of NMOS and PMOS transistors that will lead into the design of a CMOS inverter and other circuitry. This is a learning project with the sole motivation of deepending my understanding of CMOS circuits beyond simple digital switching. Since these transistors are the buidling blocks of analog and mixed-signal ICs, this project will also serve as a gateway into more complex design topics and architectures.
 I'll be using open source tools like SKY130PDK, Xschem, Ngspice, Magic, and Netgen to go from schematic to layout for the CMOS Inverter. 
-
-# Table of Contents
-
-
    
 ## NMOS Transistor Summary
 
