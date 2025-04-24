@@ -50,9 +50,40 @@ The effects of Channel Length Modulation results in an increase in current even 
 - The effective channel length (Leff) shortens because the electric field near the drain pulls the inversion layer (the conductive region) toward the source.
 - This shortening leads to an increase in current, which is accounted for by the term (1+lambda*Vds), where lambda is the channel length modulation parameter (the term multiplies saturation region formula to reflect the linear increase in Id).
 
+## PMOS Transistor Summary
+
+### PMOS as a Switch
+- Turns ON when Vsg > |Vth|.
+- Passes a strong logic 1 (VDD) but a weak logic 0 (Vth above GND).
+- Substrate/Bulk is connected to the highest potential (usually VDD).
+
+### Construction
+- Built on an n-well which is on top of the p substrate.
+- p+ heavily doped regions form the source and drain
+- The gate is placed above a thin oxide layer; its voltage controls the channel’s conductivity -> Which we will analyze using IV characteristics.
+
+![image](https://github.com/user-attachments/assets/ca8a46b8-db22-4465-8b2c-dba5ae415c2b)
+
+### Channel Dimensions
+- L : Channel length — shorter lengths result in faster switching but more leakage current
+- W : Channel width — wider widths provide higher drive strength
 
 ## IV Characteristics of an PMOS Transistor
+
 ![image](https://github.com/user-attachments/assets/7e9d2081-ff15-4756-b02c-9ed69bf07942)
 
+
+### Regions of Operation
+
+| Region       | Condition                         | Behavior                        |
+|--------------|-----------------------------------|---------------------------------|
+| **Cutoff**   | Vsg < abs(Vth)                         | OFF, no current flow            |
+| **Linear**   | Vsg >  abs(Vth), Vsd < Vsg - Vth       | Transistor behaves as a resistor |
+| **Saturation** | Vsd >= Vsg - Vth                 | Transistor acts as a constant current source |
+
+We can see the the IV Curve for Vsd and Id for PMOS is the compliment of the NMOS curve, it also is affected by Channel Length Modulation.
+
 ![image](https://github.com/user-attachments/assets/3178af45-44eb-4f59-9f05-a143e7ba68cd)
+
+
 
