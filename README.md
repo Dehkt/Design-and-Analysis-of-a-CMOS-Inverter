@@ -86,5 +86,11 @@ after saturation.
 
 ![image](https://github.com/user-attachments/assets/3178af45-44eb-4f59-9f05-a143e7ba68cd)
 
+Future Work:
+- Strong 1 and weak 0 vs Strong 0 and weak 1.
+- Inverter Schematic
+- Inverter VTC
+- Noise Analysis
+- Layout
 
 
