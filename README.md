@@ -81,7 +81,8 @@ The effects of Channel Length Modulation results in an increase in current even 
 | **Linear**   | Vsg >  abs(Vth), Vsd < Vsg - Vth       | Transistor behaves as a resistor |
 | **Saturation** | Vsd >= Vsg - Vth                 | Transistor acts as a constant current source |
 
-We can see the the IV Curve for Vsd and Id for PMOS is the compliment of the NMOS curve, it also is affected by Channel Length Modulation.
+We can see the the IV Curve for PMOS (Vsd vs ID) is the compliment of the NMOS curve, it also is affected by Channel Length Modulation as the current is still increasing (-ve) 
+after saturation.
 
 ![image](https://github.com/user-attachments/assets/3178af45-44eb-4f59-9f05-a143e7ba68cd)
 
