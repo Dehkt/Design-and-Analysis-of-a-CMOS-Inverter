@@ -51,3 +51,8 @@ The effects of Channel Length Modulation results in an increase in current even 
 - This shortening leads to an increase in current, which is accounted for by the term (1+lambda*Vds), where lambda is the channel length modulation parameter (the term multiplies saturation region formula to reflect the linear increase in Id).
 
 
+## IV Characteristics of an PMOS Transistor
+![image](https://github.com/user-attachments/assets/7e9d2081-ff15-4756-b02c-9ed69bf07942)
+
+![image](https://github.com/user-attachments/assets/3178af45-44eb-4f59-9f05-a143e7ba68cd)
+
