@@ -91,6 +91,7 @@ Future Work:
 - Inverter Schematic
 - Inverter VTC
 - Noise Analysis
+- Delay Analysis
 - Layout
 
 
