@@ -148,7 +148,7 @@ carriers which are less mobile than electrons, hence why we would have to increa
 
 After increasing PMOS width 2x:
 
-![image](https://github.com/user-attachments/assets/af864e1f-4093-42f9-8258-cf7fa6108d33)
+![image](https://github.com/user-attachments/assets/1aa59431-32f0-4de2-9fc2-7a0224fcbb9c)
 
 We can further adjust the ratio to get a result closer to 0.9V for proper noise margin symmetry.
 
