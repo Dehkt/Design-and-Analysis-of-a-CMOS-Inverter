@@ -86,10 +86,74 @@ after saturation.
 
 ![image](https://github.com/user-attachments/assets/3178af45-44eb-4f59-9f05-a143e7ba68cd)
 
+### Strong 1 Weak 0, and Strong 0 Weak 1?
+Earlier I mentioned that the NMOS passes a Strong 0(GND) and a weak 1(VDD), and the PMOS passes a strong 1(VDD) and weak 0(GND).
+This is a very important concept to understand so that we can ensure the reliability of our digital/analog circuit - particuluarly when it comes to
+signal interperetation. We want outputs to pass both Strong 0(GND) and Strong 1(VDD) to avoid falling within the circuit's noise margin - which can cause
+unpredictable behavour.
+
+To show this effect, I will show an Inverter schematic that is flipped (PMOS in the pull down network, NMOS in the pull up network), we will then simulate both the
+conventional design and my new design and check their performance.
+
+![image](https://github.com/user-attachments/assets/9ef2c883-4db6-4893-961c-b6f57d1434ad)
+
+(NMOS Pulling up - known to be a weak logic 1, PMOS Pulling down - known to be a weak logic 0)
+
+![image](https://github.com/user-attachments/assets/7bf59caa-b34a-41c5-b0ae-93fcb97a4c91)
+
+Ignoring that it does not function as an inverter, we can see that its unable to pull the output voltage to GND or VDD effectively.
+This means that our noise margin has to be really small, which is not great as it allows a lot of room for any noise to significantly impact our circuit's behavour.
+Why does this happen?
+
+NMOS uses electrons as charge carriers that flow from Drain to Source, and it connects the output to GND very easily and sinks current effectively which allows for a Strong 0.
+PMOS uses holes as charge carriers that flow from Source to Drain, and it connects the output to VDD easily and is great at sourcing current which allows for a Strong 1.
+
+### Inverter Schematic (WIP)
+
+![image](https://github.com/user-attachments/assets/e4f624f3-4555-4b4d-a77b-921c6d9e8815)
+
+Output Waveform: Pulsing 0V to 1.8V
+
+![image](https://github.com/user-attachments/assets/4cc466bf-f597-40f2-b32f-af2e856f73a6)
+
+We can observe a strong 0 and strong 1 respectively, as well as proper inverter functionality. 
+However, we can also observe these effects:
+
+When before switching to low from high:
+
+![image](https://github.com/user-attachments/assets/cd7c3d48-86ac-47a2-94b3-806bf4cde596)
+
+
+And when switching from high to low:
+
+![image](https://github.com/user-attachments/assets/9e4b9734-6708-4490-b774-fe1d1b1cdd81)
+
+We get some ringing and other voltage spikes, this is likely due to parasitic capacitance and inductance.
+
+Note: Currently WIP, I will try to improve the circuit to combat the effects of ringing and voltage spikes.
+
+### Inverter VTC
+![image](https://github.com/user-attachments/assets/f66a9276-c653-4388-b19e-283cf96a66cc)
+
+By varying our Input voltage from 0 to 1.8 (Max), we are able to see how our Vout responds to changes in Vin. 
+We can use this to find the Switching Threshold Vm which is ideally VDD/2 for a symmetrical noise margin, 1.8/2 = 0.9.
+
+![image](https://github.com/user-attachments/assets/b985b81b-53eb-4aeb-8447-34df8bd2331c)
+
+The value at which (Vin = Vout) = ~0.841863V = Vm. This is close enough but it can be improved by adjusting our PMOS width. 
+In CMOS inverters PMOS W is typically 2x more than NMOS -> this helps because PMOS is slower than NMOS in switching because it uses holes as charge
+carriers which are less mobile than electrons, hence why we would have to increase W to improve current flow. 
+
+![image](https://github.com/user-attachments/assets/7a65e1c2-f02d-4a04-9214-32f9f8053b63)
+
+After increasing PMOS width 2x:
+
+![image](https://github.com/user-attachments/assets/af864e1f-4093-42f9-8258-cf7fa6108d33)
+
+We can further adjust the ratio to get a result closer to 0.9V for proper noise margin symmetry.
+
+
 Future Work:
-- Strong 1 and weak 0 vs Strong 0 and weak 1.
-- Inverter Schematic
-- Inverter VTC
 - Noise Analysis
 - Delay Analysis
 - Layout
