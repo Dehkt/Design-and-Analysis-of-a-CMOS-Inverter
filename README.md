@@ -152,10 +152,8 @@ After increasing PMOS width 2x:
 
 We can further adjust the ratio to get a result closer to 0.9V for proper noise margin symmetry.
 
-
 Future Work:
-- Noise Analysis
-- Delay Analysis
-- Layout
+- Design for Symmetric and Large Noise Margin, minimal propagation delay, low power consumption.
+- Proper layout, follow DRC and do LVS check.
 
 
