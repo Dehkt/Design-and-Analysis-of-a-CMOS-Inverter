@@ -1,0 +1,32 @@
+** sch_path: /mnt/c/Users/Victo/InverterTest.sch
+**.subckt InverterTest
+x1 Vout Vdd GND Vin CMOSInverter
+Vin Vin GND PULSE(0 1.8 0 .1n .1n 3n 6.6n 5)
+Vdd Vdd GND 1.8
+**** begin user architecture code
+
+.lib /home/victor/pdk/sky130A/libs.tech/ngspice/sky130.lib.spice tt
+.dc Vin 0 1.8 1m
+.tran .02n 10n
+.save all
+.end
+
+**** end user architecture code
+**.ends
+
+* expanding   symbol:  /home/victor/CMOSInverter.sym # of pins=4
+** sym_path: /home/victor/CMOSInverter.sym
+** sch_path: /home/victor/CMOSInverter.sch
+.subckt CMOSInverter Vout VDD GND Vin
+*.ipin Vin
+*.opin Vout
+*.ipin GND
+*.ipin VDD
+XM1 Vout Vin GND GND sky130_fd_pr__nfet_01v8 L=0.15 W=1 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
+XM2 Vout Vin VDD VDD sky130_fd_pr__pfet_01v8 L=0.15 W=2.8 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
+.ends
+
+.GLOBAL GND
+.end
