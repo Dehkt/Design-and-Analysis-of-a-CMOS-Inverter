@@ -108,7 +108,7 @@ Why does this happen?
 NMOS uses electrons as charge carriers that flow from Drain to Source, and it connects the output to GND very easily and sinks current effectively which allows for a Strong 0.
 PMOS uses holes as charge carriers that flow from Source to Drain, and it connects the output to VDD easily and is great at sourcing current which allows for a Strong 1.
 
-### Inverter Schematic (WIP)
+### Inverter Schematic
 
 ![image](https://github.com/user-attachments/assets/e4f624f3-4555-4b4d-a77b-921c6d9e8815)
 
@@ -128,9 +128,8 @@ And when switching from high to low:
 
 ![image](https://github.com/user-attachments/assets/9e4b9734-6708-4490-b774-fe1d1b1cdd81)
 
-We get some ringing and other voltage spikes, this is likely due to parasitic capacitance. There is capacitance that comes due to the physical structure of the transistors, there is capacitance between the Gate-Source, Gate-Drain, Gate-Bulk/Substrate, Source-Bulk/Substrate, and Drain-Bulk/Substrate. Mainly these effects can be combatted with proper layout design, but in Schematic we can 
+We get some ringing and other voltage spikes, this is likely due to parasitic capacitance. There is capacitance that comes due to the physical structure of the transistors, there is capacitance between the Gate-Source, Gate-Drain, Gate-Bulk/Substrate, Source-Bulk/Substrate, and Drain-Bulk/Substrate. Mainly these effects can be combatted with proper layout design.
 
-Note: Currently WIP, I will try to improve the circuit to combat the effects of ringing and voltage spikes.
 
 ### Inverter VTC
 ![image](https://github.com/user-attachments/assets/f66a9276-c653-4388-b19e-283cf96a66cc)
