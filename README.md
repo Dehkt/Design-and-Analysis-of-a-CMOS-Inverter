@@ -197,8 +197,21 @@ From Graph:
 Then NMh = 0.735V, NMl = 0.693V. Which gives us pretty large and nearly symmetric Noise Margins -> Robust to low and high input noise.
 
 ### Delay Analysis
+Transient Analysis: Plotting Vin vs Vout
 
-### Power Analysis
+![image](https://github.com/user-attachments/assets/7cb36d6e-2d51-402c-842c-e0f0668f911d)
 
+
+Generally for Propagation delay, we use the average of the two values tPLH and tPHL.
+- tPHL - Propagation delay for a high to low transition of Vin.
+- tPLH - Propagation delay for a low to high transition of Vin.
+
+tpd = (tPLH + tPHL)/2, and we can find these two values from the given graph by measuring when both Vin and Vout are at 50% for both high to low and low to high transitions. 
+
+- Finding tPHL -> Time difference between Vin50% and Vout50% on High to Low transition (0.9V = VDD/2) = 2.29 * 10^-11 seconds 
+- Finding tPLH -> Time when Vin50% and Vout50% on Low to High transition = 2.28 * 10^-11 seconds
+- tpd = (22.8ps + 22.9ps)/2 = 22.85ps.
+
+Our Average propagation delay is really low, but this is prelayout and idealized. Real world parasticis that come from routing and capacitances will increase delay. Still, the low delay comfirms that our initial sizing was well optimized.
 
 
