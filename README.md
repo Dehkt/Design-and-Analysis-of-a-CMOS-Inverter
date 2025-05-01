@@ -128,17 +128,18 @@ And when switching from high to low:
 
 ![image](https://github.com/user-attachments/assets/9e4b9734-6708-4490-b774-fe1d1b1cdd81)
 
-We get some ringing and other voltage spikes, this is likely due to parasitic capacitance and inductance.
+We get some ringing and other voltage spikes, this is likely due to parasitic capacitance. There is capacitance that comes due to the physical structure of the transistors, there is capacitance between the Gate-Source, Gate-Drain, Gate-Bulk/Substrate, Source-Bulk/Substrate, and Drain-Bulk/Substrate. Mainly these effects can be combatted with proper layout design, but in Schematic we can 
 
 Note: Currently WIP, I will try to improve the circuit to combat the effects of ringing and voltage spikes.
 
 ### Inverter VTC
 ![image](https://github.com/user-attachments/assets/f66a9276-c653-4388-b19e-283cf96a66cc)
 
-By varying our Input voltage from 0 to 1.8 (Max), we are able to see how our Vout responds to changes in Vin. 
+By sweeping our Input voltage from 0 to 1.8 (Max), we are able to see how our Vout responds to changes in Vin. 
 We can use this to find the Switching Threshold Vm which is ideally VDD/2 for a symmetrical noise margin, 1.8/2 = 0.9.
 
-![image](https://github.com/user-attachments/assets/b985b81b-53eb-4aeb-8447-34df8bd2331c)
+![image](https://github.com/user-attachments/assets/c46c94c6-1328-4d46-b2ce-2c1dfa0900f8)
+
 
 The value at which (Vin = Vout) = ~0.841863V = Vm. This is close enough but it can be improved by adjusting our PMOS width. 
 In CMOS inverters PMOS W is typically 2x more than NMOS -> this helps because PMOS is slower than NMOS in switching because it uses holes as charge
@@ -150,10 +151,54 @@ After increasing PMOS width 2x:
 
 ![image](https://github.com/user-attachments/assets/1aa59431-32f0-4de2-9fc2-7a0224fcbb9c)
 
-We can further adjust the ratio to get a result closer to 0.9V for proper noise margin symmetry.
+We can further adjust the ratio to get a result closer to 0.9V for proper noise margin symmetry (which will be covered in the next section). My final adjustment has been the PMOS W=2.7, which makes Vm = 0.89V which is very close to our desired Vm.
 
-Future Work:
-- Design for Symmetric and Large Noise Margin, minimal propagation delay, low power consumption.
-- Proper layout, follow DRC and do LVS check.
+### Noise Analysis
+Noise is everywhere, and to improve the reliability of our inputs to outputs in our inverter circuit, we have to consider this in our design. In the previous task we sized our PMOS to get a desirable Vm, and we did that so that we can define a transistion point between Logic 1 and Logic 0 (High and Low). Where anything before Vin = 0.9 will register as a Low input, and anything after will be a high input. 
+
+After getting our desired Vm, we want to find the regions for which our gains are only 1 and -1.
+
+#### Gain in a CMOS Inverter
+The gain of an inverter is the magnitude of the slope of its VTC around the switching point Vm. 
+Av = dVout/dVin 
+- In flat gain regions, gain is almost 0 -> noise is completely eliminated.
+- Near the switching point Vm, gain > 1 -> noise is amplified.
+
+Gain Curve:
+
+![image](https://github.com/user-attachments/assets/43089078-e21b-45a9-8115-5f63e94feded)
+
+In this curve, we look at the regions where the inverter in sensitive to noise (near Vm or the switching point) where small variations in Vin cause large and unpredictable changes in Vout. The flat regions ~0 of the VTC, the output is stable and either latched to VDD or GND. Small fluctiations in Vin will not cause any practical difference in the output voltage, which is stable behavour. So, we can use this curve to define where exactly a valid input is and try to avoid putting any other inputs that will lead to indeterministic inverter behavour.
+
+Here I have plotted (Gain >= 1)*1.8 with Vout (multiplied by 1.8 to stretch it to our Vout curve).
+
+![image](https://github.com/user-attachments/assets/3e76306a-4bc8-411d-9aa4-1844b13cde94)
+
+Noise Margins:
+- NMh = Voh - Vih : The maximum noise that can be subtracted from a valid High input without being misinterpereted as a Low.
+- NMl = Vil - Vol : The maximum noise that can be added to a valid Low input without being misinterpereted as a High.
+
+Basically tells us how much noise our Inverter can tolerate without causing detection errors. Good noise margin means our Inverter will operate very well against fluctuations in the input due to any noise.
+
+Vil is the maximum input we can give that will be considered a Low Input, and Vih is the minumum input that can be considered a logic High input.
+Voh is the lowest voltage we will see at the output when the inverter is trying to give a High output, and Vih is the highest voltage we will see at the output when the
+inverter is trying to give a Low output. 
+
+By using the previous graph with the gain plotted on top of Vout, we can find each of these values specifically.
+
+![image](https://github.com/user-attachments/assets/73a32346-3947-4732-becd-57c594d2cf74)
+
+From Graph:
+- Vil = 0.7625V
+- Vih = 1.0124V
+- Voh = 1.7470V
+- Vol = 0.07V
+
+Then NMh = 0.735V, NMl = 0.693V. Which gives us pretty large and nearly symmetric Noise Margins -> Robust to low and high input noise.
+
+### Delay Analysis
+
+### Power Analysis
+
 
 
